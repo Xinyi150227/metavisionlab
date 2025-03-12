@@ -103,3 +103,4 @@ RUN pip install pip==24.0 && python -m pip install --upgrade setuptools && \
     urllib3==2.2.3 \
     wrapt==1.17.2 \
     zipp==3.20.2
+RUN /opt/conda/bin/conda init bash
