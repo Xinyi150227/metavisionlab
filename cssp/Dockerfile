@@ -7,5 +7,3 @@ RUN conda install -y scikit-learn pandas flake8 yapf isort yacs future libgcc
 
 RUN pip install pip==24.0 && python -m pip install --upgrade setuptools && \
     pip install opencv-python tb-nightly matplotlib logger_tt tabulate tqdm wheel mccabe scipy openpyxl omegaconf==2.0.5 fairseq==0.12.2 tqdm
-
-COPY ./fonts/* /opt/conda/lib/python3.10/site-packages/matplotlib/mpl-data/fonts/ttf/
