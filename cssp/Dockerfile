@@ -103,6 +103,3 @@ RUN pip install pip==24.0 && python -m pip install --upgrade setuptools && \
     urllib3==2.2.3 \
     wrapt==1.17.2 \
     zipp==3.20.2
-
-# 复制本地字体文件到 matplotlib 的字体目录
-COPY ./fonts/* /opt/conda/lib/python3.10/site-packages/matplotlib/mpl-data/fonts/ttf/
