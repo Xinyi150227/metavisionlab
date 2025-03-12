@@ -1,0 +1,59 @@
+name: Docker Image CI
+
+on:
+  push:
+    paths:
+      - '**/Dockerfile'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    # Checkout the repository
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      with: 
+        fetch-depth: '2'
+
+    # Determine updated Dockerfile
+    - name: Determine updated Dockerfile
+      id: dockerfile
+      run: |
+        for file in $(git diff --name-only "HEAD" "HEAD^" | grep Dockerfile); do
+          folder=$(dirname "$file")
+          tag=$(head -n 1 $file | sed -n 's/^#tag:\(.*\)/\1/ip')
+          echo "tag=${tag}" >> $GITHUB_ENV
+          if [ -z "$tag" ]; then
+            echo "tag=${tag}" >> $GITHUB_ENV
+          else
+            echo "folder=${folder}" >> $GITHUB_ENV
+          fi
+          echo "Updated Dockerfile in folder: ${folder}"
+        done
+
+    # Stop workflow if no Dockerfile update is detected
+    - name: Stop if no Dockerfile updated
+      if: env.folder == ''
+      run: |
+        echo "No Dockerfile change detected. Stopping workflow."
+        exit 0
+
+    # Set up Docker Buildx
+    - name: Set up Docker Buildx
+      if: env.folder != ''
+      uses: docker/setup-buildx-action@v3
+
+    # Log in to Docker Hub
+    - name: Log in
+      if: env.folder != ''
+      run: |
+        docker login -u ${{secrets.QUAY_IO_USERNAME}} -p ${{secrets.QUAY_IO_TOKEN}} quay.io
+
+    # Build and push the Docker image
+    - name: Build and push Docker image
+      if: env.folder != ''
+      run: |
+        image_name=$(basename "$folder")
+        docker build -t quay.io/${{secrets.QUAY_IO_USERNAME}}/${image_name}:${tag} "${folder}"
+        docker push quay.io/${{secrets.QUAY_IO_USERNAME}}/${image_name}:${tag}
