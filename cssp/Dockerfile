@@ -106,6 +106,3 @@ RUN pip install pip==24.0 && python -m pip install --upgrade setuptools && \
 
 # 复制本地字体文件到 matplotlib 的字体目录
 COPY ./fonts/* /opt/conda/lib/python3.10/site-packages/matplotlib/mpl-data/fonts/ttf/
-
-# 清理缓存，减小镜像大小
-RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* ~/.cache
