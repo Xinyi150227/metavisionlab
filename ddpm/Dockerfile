@@ -53,7 +53,6 @@ RUN conda install -y \
 # 安装 pip 依赖
 RUN pip install pip==24.0 && python -m pip install --upgrade setuptools && \
     pip install \
-    torch==1.10.0 \
     torchvision==0.11.1 \
     blobfile==1.2.7 \
     tqdm==4.62.3 \
