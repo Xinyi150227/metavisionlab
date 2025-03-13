@@ -1,10 +1,12 @@
 #tag:latest
 FROM pytorch/pytorch:2.6.0-cuda12.4-cudnn9-runtime
 
+# 更新系统库，安装常用工具
 RUN apt-get update && apt-get install -y \
     libgl1-mesa-glx libpci-dev curl nano psmisc zip git && \
     apt-get --fix-broken install -y
 
+# 安装 Conda 依赖
 RUN conda install -y \
     cairo=1.18.2 \
     certifi=2024.8.30 \
@@ -53,9 +55,52 @@ RUN conda install -y \
 # 安装 pip 依赖
 RUN pip install pip==24.0 && python -m pip install --upgrade setuptools && \
     pip install \
-    blobfile==1.2.7 \
-    tqdm==4.62.3 \
-    opencv-python==4.5.4.60 \
-    mpi4py \
-    timm==0.4.12 
+    opencv-python \
+    tb-nightly \
+    matplotlib \
+    logger_tt \
+    tabulate \
+    tqdm \
+    wheel \
+    mccabe \
+    scipy \
+    openpyxl \
+    antlr4-python3-runtime==4.8 \
+    bitarray==3.1.0 \
+    cffi==1.17.1 \
+    charset-normalizer==3.4.1 \
+    colorama==0.4.6 \
+    cython==3.0.12 \
+    deprecated==1.2.18 \
+    fairseq==0.12.2 \
+    filelock==3.16.1 \
+    fsspec==2025.2.0 \
+    hydra-core==1.0.7 \
+    idna==3.10 \
+    importlib-metadata==8.5.0 \
+    jinja2==3.1.5 \
+    llvmlite==0.40.1 \
+    lxml==4.9.4 \
+    markupsafe==2.1.5 \
+    matchms==0.26.4 \
+    mpmath==1.3.0 \
+    networkx==3.1 \
+    numba==0.57.1 \
+    numpy==1.22.4 \
+    omegaconf==2.0.5 \
+    pickydict==0.4.0 \
+    portalocker==3.0.0 \
+    pubchempy==1.0.4 \
+    pycparser==2.22 \
+    pyteomics==4.7.5 \
+    pyyaml==6.0.2 \
+    rdkit==2023.9.4 \
+    regex==2024.11.6 \
+    requests==2.32.3 \
+    sacrebleu==2.5.1 \
+    sparsestack==0.4.1 \
+    sympy==1.13.3 \
+    urllib3==2.2.3 \
+    wrapt==1.17.2 \
+    zipp==3.20.2
 RUN /opt/conda/bin/conda init bash
