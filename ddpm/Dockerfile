@@ -59,5 +59,5 @@ RUN pip install pip==24.0 && python -m pip install --upgrade setuptools && \
     tqdm==4.62.3 \
     opencv-python==4.5.4.60 \
     mpi4py \
-    timm==0.4.12 \
+    timm==0.4.12 
 RUN /opt/conda/bin/conda init bash
