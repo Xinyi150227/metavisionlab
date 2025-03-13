@@ -104,3 +104,4 @@ RUN pip install pip==24.0 && python -m pip install --upgrade setuptools && \
     wrapt==1.17.2 \
     zipp==3.20.2
 RUN /opt/conda/bin/conda init bash
+
