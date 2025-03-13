@@ -5,8 +5,6 @@ RUN apt-get update && apt-get install -y \
     libgl1-mesa-glx libpci-dev curl nano psmisc zip git && \
     apt-get --fix-broken install -y
 
-
-# 安装 Conda 依赖
 RUN conda install -y \
     cairo=1.18.2 \
     certifi=2024.8.30 \
