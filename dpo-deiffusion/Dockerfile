@@ -25,8 +25,9 @@ RUN wget https://repo.anaconda.com/miniconda/Miniconda3-py38_4.12.0-Linux-x86_64
 # 配置 conda 环境
 ENV PATH=/opt/conda/bin:$PATH
 RUN conda init bash && \
-    conda config --add channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/main/ && \
-    conda config --add channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/free/
+    conda config --add channels https://mirrors.aliyun.com/anaconda/pkgs/main/ && \
+        conda config --add channels https://mirrors.aliyun.com/anaconda/pkgs/free/
+
 
 # 创建专用环境（修复conda环境路径）
 RUN conda create -n dpo-diff python=3.8 -y
