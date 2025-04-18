@@ -17,7 +17,7 @@ RUN apt-get update && \
     python3-distutils && \
     rm -rf /var/lib/apt/lists/*
 
-# 安装 Miniconda（关键修复步骤）
+# 安装 Miniconda
 RUN wget https://repo.anaconda.com/miniconda/Miniconda3-py38_4.12.0-Linux-x86_64.sh -O miniconda.sh && \
     bash miniconda.sh -b -p /opt/conda && \
     rm miniconda.sh
@@ -25,11 +25,13 @@ RUN wget https://repo.anaconda.com/miniconda/Miniconda3-py38_4.12.0-Linux-x86_64
 # 配置 conda 环境
 ENV PATH=/opt/conda/bin:$PATH
 RUN conda init bash && \
-    conda config --add channels https://mirrors.aliyun.com/anaconda/pkgs/main/ && \
-        conda config --add channels https://mirrors.aliyun.com/anaconda/pkgs/free/
+    conda config --remove-key channels && \
+    conda config --add channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/main/ && \
+    conda config --add channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud/conda-forge/ && \
+    conda config --add channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud/pytorch/ && \
+    conda config --set show_channel_urls yes
 
-
-# 创建专用环境（修复conda环境路径）
+# 创建专用环境
 RUN conda create -n dpo-diff python=3.8 -y
 
 # 安装 PyTorch 2.0.0 (CUDA 11.7)
@@ -41,7 +43,7 @@ RUN conda install -n dpo-diff -y \
     -c pytorch \
     -c nvidia
 
-# 安装核心 pip 依赖（使用绝对路径）
+# 安装核心 pip 依赖
 RUN /opt/conda/envs/dpo-diff/bin/pip install \
     diffusers==0.24.0 \
     accelerate==0.24.1 \
