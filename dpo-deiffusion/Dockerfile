@@ -29,22 +29,31 @@ RUN conda init bash && \
     conda config --add channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud/pytorch/ && \
     conda config --set show_channel_urls yes
 
-# 创建专用环境
-RUN conda create -n dpo-diff python=3.8 -y
+# 创建专用环境（明确指定Python版本）
+RUN conda create -n dpo-diff python=3.8.12 -y
 
-# 安装 PyTorch 2.0.0 (CUDA 11.7)
+# 安装PyTorch核心包（分步操作）
 RUN conda install -n dpo-diff -y \
     pytorch==2.0.0 \
     torchvision==0.15.0 \
     torchaudio==2.0.0 \
     pytorch-cuda=11.7 \
+    cudatoolkit=11.7 \
     -c pytorch \
     -c nvidia \
+    -c conda-forge \
     --override-channels \
-    --strict-channel-priority
-    
+    --no-channel-priority
 
-# 安装核心 pip 依赖
+# 安装其他conda依赖
+RUN conda install -n dpo-diff -y \
+    numpy==1.22.4 \
+    pandas==1.5.3 \
+    pillow==9.5.0 \
+    tqdm==4.65.0 \
+    -c conda-forge
+
+# 使用pip安装剩余依赖
 RUN /opt/conda/envs/dpo-diff/bin/pip install \
     diffusers==0.24.0 \
     accelerate==0.24.1 \
