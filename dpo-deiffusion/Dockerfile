@@ -1,5 +1,4 @@
 #tag:latest
-# 使用 CUDA 11.7 官方基础镜像
 FROM nvidia/cuda:11.7.1-cudnn8-runtime-ubuntu20.04
 
 # 设置清华源加速
@@ -25,7 +24,6 @@ RUN wget https://repo.anaconda.com/miniconda/Miniconda3-py38_4.12.0-Linux-x86_64
 # 配置 conda 环境
 ENV PATH=/opt/conda/bin:$PATH
 RUN conda init bash && \
-    conda config --remove-key channels && \
     conda config --add channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/main/ && \
     conda config --add channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud/conda-forge/ && \
     conda config --add channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud/pytorch/ && \
