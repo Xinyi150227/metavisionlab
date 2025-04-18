@@ -1,3 +1,4 @@
+#tag:latest
 # 使用 CUDA 11.7 官方基础镜像
 FROM nvidia/cuda:11.7.1-cudnn8-runtime-ubuntu20.04
 
