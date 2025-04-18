@@ -5,6 +5,7 @@ FROM nvidia/cuda:11.7.1-cudnn8-runtime-ubuntu20.04
 ENV PIP_INDEX_URL=https://pypi.tuna.tsinghua.edu.cn/simple
 RUN sed -i 's/archive.ubuntu.com/mirrors.tuna.tsinghua.edu.cn/g' /etc/apt/sources.list
 
+
 # 安装基础系统依赖
 RUN apt-get update && \
     DEBIAN_FRONTEND=noninteractive apt-get install -y \
