@@ -39,7 +39,10 @@ RUN conda install -n dpo-diff -y \
     torchaudio==2.0.0 \
     pytorch-cuda=11.7 \
     -c pytorch \
-    -c nvidia
+    -c nvidia \
+    --override-channels \
+    --strict-channel-priority
+    
 
 # 安装核心 pip 依赖
 RUN /opt/conda/envs/dpo-diff/bin/pip install \
